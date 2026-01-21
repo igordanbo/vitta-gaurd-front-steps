@@ -9,20 +9,28 @@ import validarPeso from "../../utils/validators/peso.js";
 import "./styles.css";
 import { useState } from "react";
 import BtnSecundary from "../../components/Btn/BtnSecundary";
+import { formatAltura, formatPeso } from "../../utils.js";
 
 export default function Step002({ setStep, data, setData }) {
-  const [errors, setErrors] = useState({});
   const [modalCancelAberto, setModalCancelAberto] = useState(false);
 
   const handleChangeData = (event) => {
     const { name, value } = event.target;
 
+    let formattedValue = value;
+
+    if (name === "peso") {
+      const apenasNumeros = value.replace(/\D/g, '');
+      formattedValue = apenasNumeros ? formatPeso(apenasNumeros) : '';
+    } else if (name === "altura") {
+      const apenasNumeros = value.replace(/\D/g, '');
+      formattedValue = apenasNumeros ? formatAltura(apenasNumeros) : '';
+    }
+
     setData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: formattedValue,
     }));
-
-    console.log(data);
   };
 
   const handleSubmit = (e) => {
@@ -43,12 +51,10 @@ export default function Step002({ setStep, data, setData }) {
     }
 
     if (Object.keys(novosErros).length > 0) {
-      setErrors(novosErros);
       setModalCancelAberto(true);
       return;
     }
 
-    setErrors({});
     setModalCancelAberto(false);
     setStep(3);
   };
@@ -123,7 +129,8 @@ export default function Step002({ setStep, data, setData }) {
           title="Digite corretamente os dados"
           description="Confira novamente se todos os campos foram preenchidos corretamente para seguir com sua cotação."
           onCancel={() => setModalCancelAberto(false)}
-        ></Modal>
+          onConfirm={() => setModalCancelAberto(false)}
+        />
       )}
     </div>
   );

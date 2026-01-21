@@ -6,6 +6,7 @@ import validarRendaMensal from "../../utils/validators/renda.js";
 import "./styles.css";
 import { useState } from "react";
 import BtnSecundary from "../../components/Btn/BtnSecundary";
+import { formatDinheiro } from "../../utils.js";
 
 export default function Step002({
   setStep,
@@ -13,18 +14,22 @@ export default function Step002({
   data,
   setData,
 }) {
-  const [errors, setErrors] = useState({});
   const [modalCancelAberto, setModalCancelAberto] = useState(false);
 
   const handleChangeData = (event) => {
     const { name, value } = event.target;
 
+    let formattedValue = value;
+
+    if (name === "renda_mensal") {
+      const apenasNumeros = value.replace(/\D/g, '');
+      formattedValue = formatDinheiro(apenasNumeros);
+    }
+
     setData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: formattedValue,
     }));
-
-    console.log(data);
   };
 
   const handleSubmit = (e) => {
@@ -33,7 +38,7 @@ export default function Step002({
     const novosErros = {};
 
     if (data.profissao_atual === "" || data.profissao_atual === null) {
-      novosErros.renda_mensal = "Renda mensal inválida";
+      novosErros.profissao_atual = "Profissão atual inválida";
     }
 
     if (!validarRendaMensal(data.renda_mensal)) {
@@ -41,12 +46,10 @@ export default function Step002({
     }
 
     if (Object.keys(novosErros).length > 0) {
-      setErrors(novosErros);
       setModalCancelAberto(true);
       return;
     }
 
-    setErrors({});
     setModalCancelAberto(false);
     setStep(4);
   };
@@ -111,7 +114,8 @@ export default function Step002({
           title="Digite corretamente os dados"
           description="Confira novamente se todos os campos foram preenchidos corretamente para seguir com sua cotação."
           onCancel={() => setModalCancelAberto(false)}
-        ></Modal>
+          onConfirm={() => setModalCancelAberto(false)}
+        />
       )}
     </div>
   );

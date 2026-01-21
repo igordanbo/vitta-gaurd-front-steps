@@ -27,7 +27,6 @@ export default function Step001({ setStep, data, setData }) {
           : "Celular inválido. Use DDD + 9 dígitos",
       }));
     }
-    console.log(data);
   };
 
   const handleSubmit = (e) => {
@@ -113,7 +112,8 @@ export default function Step001({ setStep, data, setData }) {
           title="Digite corretamente os dados"
           description="Confira novamente se todos os campos foram preenchidos corretamente para seguir com sua cotação."
           onCancel={() => setModalCancelAberto(false)}
-        ></Modal>
+          onConfirm={() => setModalCancelAberto(false)}
+        />
       )}
     </div>
   );

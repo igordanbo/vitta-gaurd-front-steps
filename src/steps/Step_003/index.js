@@ -1,171 +1,116 @@
-import { useEffect, useState, useRef } from "react";
 import BtnPrimary from "../../components/Btn/BtnPrimary";
-import BtnSecundary from "../../components/Btn/BtnSecundary";
-import InputCode from "../../components/Input/InputCode";
+import InputText from "../../components/Input/InputText";
 import Modal from "../../components/Modal";
+import validarRendaMensal from "../../utils/validators/renda.js";
+
 import "./styles.css";
+import { useState } from "react";
+import BtnSecundary from "../../components/Btn/BtnSecundary";
 
-export default function Step003({ cidadao, step, setStep }) {
+export default function Step002({
+  setStep,
+
+  data,
+  setData,
+}) {
+  const [errors, setErrors] = useState({});
   const [modalCancelAberto, setModalCancelAberto] = useState(false);
-  const [modalErroAberto, setModalErroAberto] = useState(false);
-  const [modalIndisponivelAberto, setModalIndisponivelAberto] = useState(false);
-  const [carregando, setCarregando] = useState(false);
-  const enviadoRef = useRef(false);
-  const [token, setToken] = useState('');
 
-  useEffect(() => {
-    if (!cidadao.id || step !== 3) return;
+  const handleChangeData = (event) => {
+    const { name, value } = event.target;
 
-    const enviarToken = async () => {
-      try {
-        setCarregando(true);
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/cidadaos/envia-token/${cidadao.id}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
-        if (!response.ok) {
-          setModalIndisponivelAberto(true);
-          throw new Error("Erro ao enviar o código.");
-        }
-
-        const data = await response.json();
-        if (data) {
-          enviadoRef.current = true;
-        }
-      } catch (error) {
-        setModalIndisponivelAberto(true);
-        console.error("Erro ao enviar o código:", error);
-      } finally{
-        setCarregando(false);
-      }
-    };
-
-    if (!enviadoRef.current) {
-      enviadoRef.current = true;
-      enviarToken();
-    }
-  }, [cidadao.id, step]);
-
-  const validarToken = async () => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/cidadaos/verifica-email/${cidadao.id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            token: token,
-          }),
-        }
-      );
-
-      const data = await response.json();
-      const resposta = await response;
-
-      if (resposta.status === 200) {
-        setStep(4)
-      } else if (resposta.status === 400) {
-        alert("invalid");
-      } else {
-        setModalIndisponivelAberto(true);
-        console.error("Erro ao validar o código");
-        throw new Error("Erro ao validar o código");
-      }
-      console.log(data);
-    } catch (error) {
-      setModalIndisponivelAberto(true);
-      console.error("Erro ao validar o código:", error);
-      throw new Error("Erro ao validar o código");
-    }
+    console.log(data);
   };
 
-  const handleChange = (event) => {
-    const token_inserido = event.target.value;
-    setToken(token_inserido);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const novosErros = {};
+
+    if (data.profissao_atual === "" || data.profissao_atual === null) {
+      novosErros.renda_mensal = "Renda mensal inválida";
+    }
+
+    if (!validarRendaMensal(data.renda_mensal)) {
+      novosErros.renda_mensal = "Renda mensal inválida";
+    }
+
+    if (Object.keys(novosErros).length > 0) {
+      setErrors(novosErros);
+      setModalCancelAberto(true);
+      return;
+    }
+
+    setErrors({});
+    setModalCancelAberto(false);
+    setStep(4);
   };
 
   return (
     <div className="container-step-3">
+      <div className="loader-steps">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
       <h2>
-        Insira abaixo o código que enviamos para o seu endereço de email -{" "}
-        <span className="accent-color">{cidadao.email}</span>
+        Sobre <span className="accent-color">você.</span>
       </h2>
 
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
+      <p>
+        Falta pouco... Preencha mais alguns dados{" "}
+        <strong> sobre sua renda.</strong>
+      </p>
 
-          if( token !== '' ||  token === null){
-            validarToken();
-          } else {
-            alert('Preencha o código')
-          }
+      <InputText
+        label="Qual profissão você exerce atualmente?"
+        placeholder="Insira a sua profissão..."
+        name={"profissao_atual"}
+        value={data.profissao_atual}
+        onChange={(event) => {
+          handleChangeData(event);
+        }}
+      />
 
+      <InputText
+        label="Qual sua renda mensal individual declarada (não familiar)?"
+        placeholder="Insira a sua renda mensal..."
+        name="renda_mensal"
+        value={data.renda_mensal}
+        onChange={handleChangeData}
+      />
+
+      <BtnPrimary
+        adicionalClass="success"
+        onClick={(e) => {
+          handleSubmit(e);
         }}
       >
-        <InputCode
-          name="codigo_uninco"
-          placeholder="1234"
-          mask="9999"
-          value={token}
-          onChange={handleChange}
-        />
-
-        <BtnPrimary type="submit">Verificar</BtnPrimary>
-      </form>
-
-      <BtnSecundary adicionalClass="btn-back" onClick={0}>
-        Não recebi o código
-      </BtnSecundary>
+        Próximo passo
+      </BtnPrimary>
 
       <BtnSecundary
-        adicionalClass="btn-cancel"
         onClick={() => {
-          setModalCancelAberto(true);
+          setStep(2);
         }}
       >
-        Cancelar
+        Voltar um passo
       </BtnSecundary>
-
-      {modalErroAberto && (
-        <Modal
-          type="danger"
-          title="Verifique o código digitado"
-          description="O código digitado é inválido, por favor, verifique o código em seu e-mail e tente novamente."
-          onCancel={() => setModalErroAberto(false)}
-          onConfirm={() => setModalErroAberto(false)}
-        ></Modal>
-      )}
 
       {modalCancelAberto && (
         <Modal
           type="warning"
-          title="Cancelar solicitação"
-          description="Tem certeza que deseja cancelar a solicitação? Os dados não serão salvos."
+          title="Digite corretamente os dados"
+          description="Confira novamente se todos os campos foram preenchidos corretamente para seguir com sua cotação."
           onCancel={() => setModalCancelAberto(false)}
-          onConfirm={() => {
-            window.location.reload();
-          }}
-        ></Modal>
-      )}
-
-      {modalIndisponivelAberto && (
-        <Modal
-          type="warning"
-          title="Ops... Algo errado aqui..."
-          description="Estamos enfrentando dificuldades para processar sua solicitação. Em instantes tente novamente."
-          onCancel={() => setModalCancelAberto(false)}
-          onConfirm={() => {
-            window.location.reload();
-          }}
         ></Modal>
       )}
     </div>

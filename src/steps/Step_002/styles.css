@@ -1,25 +1,87 @@
-.container-step-2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 100%;
-    max-width: 100%;
-    gap: 20px;
+.container-step-2 {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  gap: 20px;
+  position: relative;
 }
 
-.container-step-2 h2{
-    font-size: 22px;
-    font-weight: 400;
-    margin: 0;
+.container-step-2 .loader-steps {
+  width: 100%;
+  height: 10px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
 }
 
-.container-step-2 h1{
-    font-size: 60px;
-    font-weight: 400;
-    margin: 0;
+@media (max-width: 500px) {
+  .container-step-2 .loader-steps {
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 
-.container-step-2 form{
-    min-width: 100%;
-    max-width: 100%;
+.container-step-2 .loader-steps div {
+  width: 100%;
+  height: 10px;
+  border-radius: 200px;
+}
+
+.container-step-2 .loader-steps div:nth-child(1) {
+  background-color: var(--cor4);
+}
+
+.container-step-2 .loader-steps div:nth-child(2) {
+  background-color: var(--cor4);
+}
+
+.container-step-2 .loader-steps div:nth-child(3) {
+  background-color: #34405420;
+}
+
+.container-step-2 .loader-steps div:nth-child(4) {
+  background-color: #34405420;
+}
+
+.container-step-2 .loader-steps div:nth-child(5) {
+  background-color: #34405420;
+}
+
+.container-step-2 h2 {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 52px;
+  margin: 0;
+
+  color: #344054;
+}
+
+.container-step-2 h3 {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 38px;
+  margin: 0;
+  letter-spacing: -1px;
+  color: #344054;
+}
+
+.container-step-2 p {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+
+  margin: 0;
+  color: #344054;
+}
+
+.container-step-2 button {
+  width: 100%;
+  margin: 0;
+}
+
+.container-step-2 hr {
+  width: 300px;
+  opacity: 0.3;
 }

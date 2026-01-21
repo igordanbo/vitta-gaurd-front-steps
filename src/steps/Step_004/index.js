@@ -1,192 +1,127 @@
-import { useState } from "react";
 import BtnPrimary from "../../components/Btn/BtnPrimary";
+import Modal from "../../components/Modal";
+
+import "./styles.css";
+import { useEffect, useState } from "react";
 import BtnSecundary from "../../components/Btn/BtnSecundary";
 import SelectCustom from "../../components/SelectCustom";
-import TextArea from "../../components/TextArea";
-import Modal from "../../components/Modal";
-import "./styles.css";
 
 export default function Step004({
-  solicitacao,
-  setSolicitacao,
-  cidadao,
   setStep,
+  data,
+  setData,
 }) {
+  const [errors, setErrors] = useState({});
   const [modalCancelAberto, setModalCancelAberto] = useState(false);
-  const [modalErroAberto, setModalErroAberto] = useState(false);
-  const [modalIndisponivelAberto, setModalIndisponivelAberto] = useState(false);
-  const [categorias, setCategorias] = useState([]);
-  const [comunidades, setComunidades] = useState([]);
-  const [carregando, setCarregando] = useState(false);
 
+  const handleChangeData = (event) => {
+    const { name, value } = event.target;
 
-  const handleChange = (event) => {
-    setSolicitacao((prev) => ({
+    setData((prev) => ({
       ...prev,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }));
-    console.log(solicitacao);
+
+    console.log(data);
   };
 
-  useState(async () => {
-    setSolicitacao((prev) => ({
-      ...prev,
-      id_cidadao: cidadao.id,
-    }));
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    try {
-      setCarregando(true);
-      const listarCategorias = await fetch(
-        "http://127.0.0.1:8000/api/categorias"
-      );
+    const novosErros = {};
 
-      if (!listarCategorias.ok) {
-        setModalIndisponivelAberto(true);
-        const errorData = await listarCategorias.json().catch(() => null);
-        console.error("Erro ao listar categorias - Detalhes:", errorData);
-        throw new Error("Erro ao listar categorias");
-      }
-
-      const data = await listarCategorias.json();
-      setCategorias(data);
-    } catch (error) {
-      setModalIndisponivelAberto(true);
-      throw new Error("Erro ao listar categorias");
-    } finally{
-      setCarregando(false);
+    if (data.sexo === "" || data.sexo === null) {
+      novosErros.sexo = "Informação não preenchida (Sexo)";
     }
 
-    try {
-      setCarregando(true);
-      const listarComunidades = await fetch(
-        "http://127.0.0.1:8000/api/comunidades"
-      );
-
-      if (!listarComunidades.ok) {
-        const errorData = await listarComunidades.json().catch(() => null);
-        console.error("Erro ao listar categorias - Detalhes:", errorData);
-        throw new Error("Erro ao listar categorias");
-      }
-
-      const data = await listarComunidades.json();
-      setComunidades(data);
-    } catch (error) {
-      setModalIndisponivelAberto(true);
-      throw new Error("Erro ao listar categorias");
-    } finally{
-      setCarregando(false);
+    if (data.fumante === "" || data.fumante === null) {
+      novosErros.fumante = "Informação não preenchida (Fumante)";
     }
-  }, []);
+
+    if (Object.keys(novosErros).length > 0) {
+      setErrors(novosErros);
+      setModalCancelAberto(true);
+      return;
+    }
+
+    setErrors({});
+    setModalCancelAberto(false);
+    setStep(5);
+  };
 
   return (
     <div className="container-step-4">
+      <div className="loader-steps">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
       <h2>
-        Bem vindo ao <span className="accent-color">SolicitaAi</span>
+        Ultimo <span className="accent-color">passo.</span>
       </h2>
 
-      <h1>Vamos lá?</h1>
-
-      <h2>Tudo certo e verificado, você já pode começar sua solicitação.</h2>
-
-      <small>
-        É extremamente importante que você siga todos os passos, inserir todos
-        os campos abaixo solicitados e ao final clicar em “Enviar solicitação”
-      </small>
+      <p>
+        Terminando... Preencha esses últimos dados <strong> sobre você.</strong>
+      </p>
 
       <SelectCustom
-        label="Selecione qual a sua comunidade"
-        name="id_comunidade"
-        value={solicitacao?.id_comunidade}
-        onChange={handleChange}
-      >
-        {comunidades?.dados?.map((comunidade) => (
-          <option key={comunidade.id} value={comunidade.id}>
-            {comunidade.nome}
-          </option>
-        ))}
-      </SelectCustom>
+        label={"No seu registro de nascimento consta o sexo:"}
+        valueKey="valuekey"
+        labelKey="labelKey"
+        name={"sexo"}
+        options={[
+          { valueKey: "masculino", labelKey: "Masculino" },
+          { valueKey: "masculino", labelKey: "Feminino" },
+        ]}
+        value={data.sexo}
+        onChange={(event) => {
+          handleChangeData(event);
+        }}
+      />
 
       <SelectCustom
-        label="Selecione o tipo de solicitação"
-        name="id_categoria"
-        value={solicitacao?.id_categoria}
-        onChange={handleChange}
-      >
-        {categorias?.dados?.map((categoria) => (
-          <option key={categoria.id} value={categoria.id}>
-            {categoria.nome}
-          </option>
-        ))}
-      </SelectCustom>
-
-      <TextArea
-        label="Descreva sua solicitação"
-        name="descricao"
-        placeholder="Descreva sua solicitação aqui..."
-        value={solicitacao?.descricao}
-        onChange={handleChange}
+        label={
+          "Você fumou produtos com nicotina ou cigarros eletrônicos nos últimos 24 meses:"
+        }
+        valueKey="valuekey"
+        labelKey="labelKey"
+        name={"fumante"}
+        options={[
+          { valueKey: true, labelKey: "Sim" },
+          { valueKey: false, labelKey: "Não" },
+        ]}
+        value={data.fumante}
+        onChange={(event) => {
+          handleChangeData(event);
+        }}
       />
 
       <BtnPrimary
-        onClick={() => {
-          if (
-            solicitacao?.id_comunidade !== "" &&
-            solicitacao?.id_categoria !== "" &&
-            solicitacao?.id_cidadao !== ""
-          ) {
-            setStep(5);
-          } else {
-            setModalErroAberto(true);
-          }
+        adicionalClass="success_btn"
+        onClick={(e) => {
+          handleSubmit(e);
         }}
       >
-        Próximo passo
+        Concluir
       </BtnPrimary>
 
-      <BtnSecundary adicionalClass="btn-back" onClick={null}>
-        Voltar uma etapa
-      </BtnSecundary>
-
       <BtnSecundary
-        adicionalClass="btn-cancel "
         onClick={() => {
-          setModalCancelAberto(true);
+          setStep(3);
         }}
       >
-        Cancelar solicitacao
+        Voltar um passo
       </BtnSecundary>
-
-      {modalErroAberto && (
-        <Modal
-          type="danger"
-          title="Preencha todos os campos"
-          description="Por favor, preencha todos os campos obrigatórios antes de prosseguir."
-          onCancel={() => setModalErroAberto(false)}
-          onConfirm={() => setModalErroAberto(false)}
-        ></Modal>
-      )}
 
       {modalCancelAberto && (
         <Modal
           type="warning"
-          title="Cancelar solicitação"
-          description="Tem certeza que deseja cancelar a solicitação? Os dados não serão salvos."
+          title="Digite corretamente os dados"
+          description="Confira novamente se todos os campos foram preenchidos corretamente para seguir com sua cotação."
           onCancel={() => setModalCancelAberto(false)}
-          onConfirm={() => {
-            window.location.reload();
-          }}
-        ></Modal>
-      )}
-
-      {modalIndisponivelAberto && (
-        <Modal
-          type="warning"
-          title="Ops... Algo errado aqui..."
-          description="Estamos enfrentando dificuldades para processar sua solicitação. Em instantes tente novamente."
-          onCancel={() => setModalCancelAberto(false)}
-          onConfirm={() => {
-            window.location.reload();
-          }}
         ></Modal>
       )}
     </div>

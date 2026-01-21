@@ -1,171 +1,128 @@
-import { useState, useEffect } from "react";
 import BtnPrimary from "../../components/Btn/BtnPrimary";
-import BtnSecundary from "../../components/Btn/BtnSecundary";
-import InputEmail from "../../components/Input/InputEmail";
+import InputText from "../../components/Input/InputText";
+import InputCustomMask from "../../components/Input/InputCustomMask";
 import Modal from "../../components/Modal";
+import validarDataNascimento from "../../utils/validators/nascimento.js";
+import validarAltura from "../../utils/validators/altura.js";
+import validarPeso from "../../utils/validators/peso.js";
+
 import "./styles.css";
-import Loading from "../../components/Loading";
+import { useState } from "react";
+import BtnSecundary from "../../components/Btn/BtnSecundary";
 
-export default function Step002({
-  solicitacao,
-  setSolicitacao,
-  setCidadao,
-  cidadao,
-  step,
-  setStep,
-}) {
+export default function Step002({ setStep, data, setData }) {
+  const [errors, setErrors] = useState({});
   const [modalCancelAberto, setModalCancelAberto] = useState(false);
-  const [modalErroAberto, setModalErroAberto] = useState(false);
-  const [modalIndisponivelAberto, setModalIndisponivelAberto] = useState(false);
-  const [isValid, setIsValid] = useState("");
-  const [email, setEmail] = useState();
-  const [carregando, setCarregando] = useState(false);
 
-  const handleChange = (event) => {
-    setCidadao((prev) => ({
+  const handleChangeData = (event) => {
+    const { name, value } = event.target;
+
+    setData((prev) => ({
       ...prev,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }));
-    setEmail(event.target.value);
+
+    console.log(data);
   };
 
-  const handleSubmitEmail = async () => {
-    setCarregando(true);
-    try {
-      console.log("Email recebido:", email);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      // Verifica se o email já existe
-      const emailResponse = await fetch(
-        `http://127.0.0.1:8000/api/cidadaos/email-existe?email=${email}`,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+    const novosErros = {};
 
-      if (!emailResponse.ok) {
-        setModalIndisponivelAberto(true);
-        throw new Error("Erro ao verificar email");
-      }
-
-      const data = await emailResponse.json();
-      console.log("Resposta do servidor:", data);
-
-      if (!data.id) {
-        console.log("Email não cadastrado, criando novo cidadão");
-        setCidadao((prev) => ({
-          ...prev,
-          email: email,
-        }));
-        setStep(6);
-      } else {
-        console.log("Email já cadastrado, buscando cidadão existente");
-        setCidadao((prev) => ({
-          ...prev,
-          id: data.id,
-        }));
-
-        setSolicitacao((prev) => ({
-          ...prev,
-          id_cidadao: data.id,
-        }));
-
-        setStep(3);
-      }
-    } catch (error) {
-      console.error("Erro ao enviar email:", error);
-      setModalIndisponivelAberto(true);
-    } finally {
-      setCarregando(false)
+    if (!validarDataNascimento(data.data_nascimento)) {
+      novosErros.data_nascimento = "Data de nascimento inválida";
     }
-  };
 
-  useEffect(() => {
-    console.log("Cidadao atualizado:", cidadao);
-  }, [cidadao]);
+    if (!validarPeso(data.peso)) {
+      novosErros.peso = "Peso inválido (ex: 79,5)";
+    }
+
+    if (!validarAltura(data.altura)) {
+      novosErros.altura = "Altura inválida (ex: 1,65)";
+    }
+
+    if (Object.keys(novosErros).length > 0) {
+      setErrors(novosErros);
+      setModalCancelAberto(true);
+      return;
+    }
+
+    setErrors({});
+    setModalCancelAberto(false);
+    setStep(3);
+  };
 
   return (
     <div className="container-step-2">
-        {carregando ? <Loading/> : ''}
+      <div className="loader-steps">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
       <h2>
-        Bem vindo ao <span className="accent-color">SolicitaAi</span>
+        Sobre <span className="accent-color">você.</span>
       </h2>
 
-      <h1>Vamos lá?</h1>
+      <p>
+        Quase lá... Preencha mais alguns dados <strong> sobre você.</strong>
+      </p>
 
-      <form
-        onSubmit={async (event) => {
-          event.preventDefault();
-          if (isValid) {
-            await handleSubmitEmail(event);
-          } else {
-            setModalErroAberto(true);
-          }
+      <InputCustomMask
+        label="Sua data de nascimento"
+        placeholder="99/99/9999"
+        mask="99/99/9999"
+        name="data_nascimento"
+        value={data.data_nascimento}
+        onChange={handleChangeData}
+      />
+
+      <InputText
+        label={"Preencha seu peso"}
+        placeholder={"79,00"}
+        name={"peso"}
+        value={data.peso}
+        onChange={(event) => {
+          handleChangeData(event);
+        }}
+      />
+
+      <InputText
+        label={"Preencha sua altura"}
+        placeholder={"1,65"}
+        name={"altura"}
+        value={data.altura}
+        onChange={(event) => {
+          handleChangeData(event);
+        }}
+      />
+
+      <BtnPrimary
+        adicionalClass="success"
+        onClick={(e) => {
+          handleSubmit(e);
         }}
       >
-        <InputEmail
-          label="Digite seu e-mail"
-          name="email"
-          placeholder="exemplo@email.com"
-          value={cidadao.email}
-          onChange={(event) => {
-            handleChange(event);
-          }}
-          setIsValid={setIsValid}
-        />
-
-        {console.log("Estado de validade do email:", isValid)}
-
-        <BtnPrimary type="submit">Verificar e-mail</BtnPrimary>
-      </form>
+        Próximo passo
+      </BtnPrimary>
 
       <BtnSecundary
         onClick={() => {
           setStep(1);
         }}
       >
-        Voltar uma etapa
+        Voltar um passo
       </BtnSecundary>
-
-      <BtnSecundary
-        adicionalClassName="btn-cancel"
-        onClick={() => {
-          setModalCancelAberto(true);
-        }}
-      >
-        Cancelar solicitacao
-      </BtnSecundary>
-
-      {modalErroAberto && (
-        <Modal
-          type="danger"
-          title="Verifique o email digitado"
-          description="O email digitado é inválido, por favor, verifique e tente novamente."
-          onCancel={() => setModalErroAberto(false)}
-          onConfirm={() => setModalErroAberto(false)}
-        ></Modal>
-      )}
 
       {modalCancelAberto && (
         <Modal
           type="warning"
-          title="Cancelar solicitação"
-          description="Tem certeza que deseja cancelar a solicitação? Os dados não serão salvos."
+          title="Digite corretamente os dados"
+          description="Confira novamente se todos os campos foram preenchidos corretamente para seguir com sua cotação."
           onCancel={() => setModalCancelAberto(false)}
-          onConfirm={() => {
-            window.location.reload();
-          }}
-        ></Modal>
-      )}
-
-      {modalIndisponivelAberto && (
-        <Modal
-          type="warning"
-          title="Ops... Algo errado aqui..."
-          description="Estamos enfrentando dificuldades para processar sua solicitação. Em instantes tente novamente."
-          onCancel={() => setModalIndisponivelAberto(false)}
-          onConfirm={() => {
-            window.location.reload();
-          }}
         ></Modal>
       )}
     </div>

@@ -1,25 +1,29 @@
-.custom-input-mask{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-    text-align: left; 
+.custom-input-mask {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
 }
 
-.input-mask{
-    height: 52px;
+.custom-input-mask label {
+  font-size: 20px;
+}
 
-    font-size: 16px;
-    font-family: Inter;
-    color: #344054;
- 
-    display: flex;
+.input-mask {
+  height: 52px;
 
-    border: 2px solid #D9D9D9;
-    border-radius: 20px;
-    outline: none;
+  font-size: 20px !important;
+  font-family: Plus Jakarta Sans !important;
+  color: #344054;
 
-    padding: 0 24px;
+  display: flex;
 
-    cursor: pointer;
+  border: 2px solid #d9d9d9;
+  border-radius: 20px;
+  outline: none;
+
+  padding: 0 24px;
+
+  cursor: pointer;
 }

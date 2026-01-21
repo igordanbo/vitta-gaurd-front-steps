@@ -1,31 +1,33 @@
 .container-select-custom {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    text-align: left;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  width: 100%;
 }
 
-.container-select-custom 
-.select-custom{
-    height: 52px;
-    font-size: 16px;
-    font-family: Inter;
-    color: #344054;
- 
-    display: flex;
-
-    border: 2px solid #D9D9D9;
-    border-radius: 20px;
-    background-color: #fff;
-    outline: none;
-
-    padding: 0 24px 0 24px;
-
-    cursor: pointer;
+.container-select-custom label {
+  font-size: 20px;
 }
 
-.container-select-custom 
-.select-custom:hover{
-    opacity: .7;
+.container-select-custom .select-custom {
+  height: 52px;
+  font-size: 20px;
+  font-family: Plus Jakarta Sans;
+  color: #344054;
+
+  display: flex;
+
+  border: 2px solid #d9d9d9;
+  border-radius: 20px;
+  background-color: #fff;
+  outline: none;
+
+  padding: 0 24px 0 24px;
+
+  cursor: pointer;
+}
+
+.container-select-custom .select-custom:hover {
+  opacity: 0.7;
 }

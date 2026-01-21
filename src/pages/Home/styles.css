@@ -1,8 +1,533 @@
-.step-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
-    gap: 32px;
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
+:root {
+  --cor1: #564499;
+  --cor2: #8b5cf640;
+  --cor3: #8b5cf620;
+  --cor-sec: #b4cd57;
+  --cor-sec-strong: #7d9036;
+  --cor-sec-soft: #b4cd5730;
+  --cor-terc: #697abb;
+  --cor-quat: #071d42;
 }
 
+.f24 {
+  display: flex;
+  gap: 24px;
+}
 
+.mt24 {
+  margin-top: 24px;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+}
+
+header img {
+  max-width: 200px;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.logo {
+  max-width: 130px;
+}
+
+.mobile {
+  display: none;
+}
+
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* VIDEO BACKGROUND */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1;
+}
+
+/* Conteúdo */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 64px 0;
+  z-index: 2;
+}
+
+.hero-content h1 {
+  font-size: 60px;
+  letter-spacing: -3px;
+  line-height: 64px;
+  font-weight: 700;
+  max-width: 620px;
+  color: #fff;
+  padding: 0 25px;
+  font-family: Plus Jakarta Sans;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #fff;
+  padding: 0 25px;
+  margin-top: 10px;
+  max-width: 700px;
+  font-family: Plus Jakarta Sans;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: Plus Jakarta Sans;
+  border-radius: 60px;
+}
+
+.btn:hover {
+  opacity: 0.5;
+}
+
+.btn-roxo-1 {
+  background-color: var(--cor2);
+  color: #fff;
+}
+
+.btn-roxo-2 {
+  background-color: var(--cor1);
+  color: #fff;
+  box-shadow: 0 0 0 0 var(--cor2);
+
+  animation: pulse-solid 1.8s infinite;
+}
+
+.btn-verde-1 {
+  background-color: var(--cor-sec-soft);
+  color: var(--cor-sec-strong);
+}
+
+.btn-verde-2 {
+  background-color: var(--cor-sec);
+  color: var(--cor-quat);
+
+  box-shadow: 0 0 0 0 var(--cor2);
+
+  animation: pulse-solid-2 1.8s infinite;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 40px;
+    line-height: 42px;
+  }
+}
+
+@keyframes pulse-solid {
+  0% {
+    box-shadow: 0 0 0 0 var(--cor2);
+  }
+
+  70% {
+    box-shadow: 0 0 0 14px var(--cor3);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 70, 255, 0);
+  }
+}
+
+@keyframes pulse-solid-2 {
+  0% {
+    box-shadow: 0 0 0 0 var(--cor-sec-soft);
+  }
+
+  70% {
+    box-shadow: 0 0 0 14px var(--cor-sec-soft);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 70, 255, 0);
+  }
+}
+
+/*SESSAO 2*/
+
+.features {
+  padding: 64px 20px;
+}
+
+.features-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+  text-align: center;
+}
+
+.feature-item h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.feature-item p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.feature-icon {
+  min-width: 56px;
+  max-width: 56px;
+  min-height: 56px;
+  max-height: 56px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: var(--cor3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor1);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.feature-icon-2 {
+  min-width: 56px;
+  max-width: 56px;
+  min-height: 56px;
+  max-height: 56px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background: var(--cor-sec-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-sec-strong);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Responsivo até 1000px */
+@media (max-width: 1000px) {
+  .features-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/*FIM*/
+
+/*SESSAO 2*/
+
+.cta-img {
+  padding: 64px 20px;
+  background: var(--cor-quat);
+}
+
+.cta-img-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 60px;
+  text-align: left;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-img-item img {
+  max-width: 100%;
+  border-radius: 24px;
+}
+
+.cta-img-item .badge {
+  margin-bottom: 24px;
+}
+
+.cta-img-item h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.cta-img-item p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #64748b;
+  max-width: 320px;
+}
+
+/* Responsivo até 1000px */
+@media (max-width: 1000px) {
+  .cta-img-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/*FIM*/
+
+/*Serviços*/
+
+.agro-section {
+  padding: 80px 0;
+  background: var(--cor3);
+  font-family: Plus Jakarta Sans;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  font-family: Plus Jakarta Sans;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  background: var(--cor-sec-soft);
+  color: var(--cor-sec-strong);
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: Plus Jakarta Sans;
+}
+
+.agro-section .badge {
+  background-color: var(--cor3);
+  color: var(--cor1);
+}
+
+/* Title */
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 20px;
+  color: #000;
+  font-family: Plus Jakarta Sans;
+}
+
+/* Description */
+.section-desc {
+  max-width: 600px;
+  color: #555;
+  font-size: 16px;
+  margin-top: 12px;
+  line-height: 1.6;
+  font-family: Plus Jakarta Sans;
+}
+
+/* Cards container */
+.cards {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: Plus Jakarta Sans;
+}
+
+.agro-section .btn-roxo-1 {
+  color: var(--cor-quat);
+}
+
+/* XXXXX */
+
+.features-extended {
+  padding: 64px 20px;
+}
+
+.features-extended-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.features-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px 60px;
+}
+
+.feature-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.feature-row h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #0f172a;
+}
+
+.feature-row p {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Responsivo */
+@media (max-width: 1000px) {
+  .features-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*WPP*/
+
+.whatsapp-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  bottom: 20px;
+  right: 20px;
+  margin: 0;
+  padding: 12px;
+  z-index: 99;
+  background-color: #25d366;
+  border-radius: 100px;
+}
+
+.whatsapp-link:hover {
+  opacity: 0.5;
+}
+
+/* Footer*/
+
+.site-footer {
+  background: var(--cor3);
+  /* cinza claro */
+  padding: 60px 20px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* Lado esquerdo */
+.footer-left img {
+  max-width: 200px;
+  margin-bottom: 12px;
+}
+
+.footer-left h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.footer-left p {
+  max-width: 450px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.footer-btn {
+  display: inline-block;
+  background: var(--cor1);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 60px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-btn:hover {
+  opacity: 0.8;
+}
+
+/* Lado direito */
+.footer-right h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+.footer-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-right ul li {
+  margin-bottom: 10px;
+}
+
+.footer-right ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+}
+
+.footer-right ul li a:hover {
+  color: #44b926;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+  }
+}

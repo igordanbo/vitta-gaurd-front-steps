@@ -6,21 +6,29 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="video-background desktop">
-          <img src="imagens/11501.jpg" className="video-placeholder" alt="Imagem ilustrativa" />
+          <img
+            src="imagens/11501.jpg"
+            className="video-placeholder"
+            alt="Imagem ilustrativa"
+          />
         </div>
 
         <div className="overlay"></div>
 
         <div className="hero-content">
-          <img src="imagens/logo-branco.png" className="logo" alt="Logo Vitta Guard" />
+          <img
+            src="imagens/logo-branco.png"
+            className="logo"
+            alt="Logo Vitta Guard"
+          />
 
           <h1>Seguro inteligente para o que realmente importa</h1>
           <p>
             Contrate seus seguros 100% online, com quem realmente se importa com
-            você, Nexon Seguros.
+            você, Vitta Guard.
           </p>
           <div className="f24">
-            <Link to="https://wa.me/541987459038" className="btn btn-roxo-1">
+            <Link to="https://wa.me/5541987459038" className="btn btn-roxo-1">
               Saiba mais
             </Link>
             <Link to="/cotacao" className="btn btn-roxo-2">
@@ -69,7 +77,7 @@ export default function Home() {
                 <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
               </svg>
             </div>
-            <h3>Por que escolher a Nexon Seguros? Te explicamos.</h3>
+            <h3>Por que escolher a Vitta Guard? Te explicamos.</h3>
             <p>
               Aqui você não compra apenas um seguro. Você constrói uma relação
               de confiança com nossa equipe.
@@ -101,7 +109,7 @@ export default function Home() {
 
       <section className="agro-section">
         <div className="container">
-          <span className="badge">Nexon Seguros</span>
+          <span className="badge">Vitta Guard</span>
 
           <h2 className="section-title">
             Proteja o que é importante para você hoje
@@ -111,7 +119,7 @@ export default function Home() {
             segurança e tranquilidade.
           </p>
           <div className="f24">
-            <Link to="https://wa.me/541987459038" className="btn btn-roxo-1">
+            <Link to="https://wa.me/5541987459038" className="btn btn-roxo-1">
               Saiba mais
             </Link>
             <Link to="/cotacao" className="btn btn-roxo-2">
@@ -124,7 +132,7 @@ export default function Home() {
       <section className="cta-img">
         <div className="cta-img-container">
           <div className="cta-img-item">
-            <span className="badge">Nexon Seguros</span>
+            <span className="badge">Vitta Guard</span>
 
             <h3>Experiência, confiança e compromisso</h3>
             <p>
@@ -133,10 +141,10 @@ export default function Home() {
             </p>
 
             <div className="f24">
-              <a href="https://wa.me/541987459038" className="btn btn-verde-1">
+              <a href="https://wa.me/5541987459038" className="btn btn-verde-1">
                 Saiba mais
               </a>
-              <a href="https://wa.me/541987459038" className="btn btn-verde-2">
+              <a href="https://wa.me/5541987459038" className="btn btn-verde-2">
                 Cotar agora
               </a>
             </div>
@@ -298,7 +306,11 @@ export default function Home() {
 
       <section className="hero">
         <div className="video-background desktop">
-          <img src="imagens/11501.jpg" className="video-placeholder" alt="Imagem ilustrativa" />
+          <img
+            src="imagens/11501.jpg"
+            className="video-placeholder"
+            alt="Imagem ilustrativa"
+          />
         </div>
 
         <div className="overlay"></div>
@@ -310,7 +322,7 @@ export default function Home() {
             segurança e tranquilidade.
           </p>
           <div className="f24">
-            <Link to="https://wa.me/541987459038" className="btn btn-roxo-1">
+            <Link to="https://wa.me/5541987459038" className="btn btn-roxo-1">
               Saiba mais
             </Link>
             <Link to="/cotacao" className="btn btn-roxo-2">
@@ -327,7 +339,7 @@ export default function Home() {
             <h2>Faça já sua cotação</h2>
             <p>
               Contrate seus seguros 100% online, com quem realmente se importa
-              com você, Nexon Seguros.
+              com você, Vitta Guard.
             </p>
 
             <Link to="/cotacao" className="btn btn-roxo-2">
@@ -339,13 +351,15 @@ export default function Home() {
             <h3>Links úteis</h3>
             <ul>
               <li>
-                <a href="https://wa.me/541987459038">WhatsApp</a>
+                <a href="https://wa.me/5541987459038">WhatsApp</a>
               </li>
               <li>
                 <a href="https://www.instagram.com/vittaguard/">Instagram</a>
               </li>
               <li>
-                <a href="https://www.facebook.com/profile.php?id=61574481791876">Facebook</a>
+                <a href="https://www.facebook.com/profile.php?id=61574481791876">
+                  Facebook
+                </a>
               </li>
             </ul>
             <svg
@@ -549,7 +563,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <a className="whatsapp-link" href="https://wa.me/541987459038">
+      <a className="whatsapp-link" href="https://wa.me/5541987459038">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="56"

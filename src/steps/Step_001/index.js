@@ -6,6 +6,7 @@ import validarCelular from "../../utils/validators/celular.js";
 
 import "./styles.css";
 import { useState } from "react";
+import BtnSecundary from "../../components/Btn/BtnSecundary/index.js";
 
 export default function Step001({ setStep, data, setData }) {
   const [errors, setErrors] = useState({});
@@ -105,6 +106,15 @@ export default function Step001({ setStep, data, setData }) {
       >
         Próximo passo
       </BtnPrimary>
+
+      <BtnSecundary
+        onClick={() => {
+          setModalCancelAberto(false);
+          window.location.href = "/";
+        }}
+      >
+        Voltar para a página inicial
+      </BtnSecundary>
 
       {modalCancelAberto && (
         <Modal

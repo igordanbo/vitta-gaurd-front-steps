@@ -6,13 +6,13 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="video-background desktop">
-          <img src="imagens/11501.jpg" className="video-placeholder" />
+          <img src="imagens/11501.jpg" className="video-placeholder" alt="Imagem ilustrativa" />
         </div>
 
         <div className="overlay"></div>
 
         <div className="hero-content">
-          <img src="imagens/logo-branco.png" className="logo" />
+          <img src="imagens/logo-branco.png" className="logo" alt="Logo Vitta Guard" />
 
           <h1>Seguro inteligente para o que realmente importa</h1>
           <p>
@@ -20,7 +20,7 @@ export default function Home() {
             você, Nexon Seguros.
           </p>
           <div className="f24">
-            <Link to="https://wa.me/5542998170202" className="btn btn-roxo-1">
+            <Link to="https://wa.me/541987459038" className="btn btn-roxo-1">
               Saiba mais
             </Link>
             <Link to="/cotacao" className="btn btn-roxo-2">
@@ -111,7 +111,7 @@ export default function Home() {
             segurança e tranquilidade.
           </p>
           <div className="f24">
-            <Link to="https://wa.me/5542998170202" className="btn btn-roxo-1">
+            <Link to="https://wa.me/541987459038" className="btn btn-roxo-1">
               Saiba mais
             </Link>
             <Link to="/cotacao" className="btn btn-roxo-2">
@@ -133,17 +133,17 @@ export default function Home() {
             </p>
 
             <div className="f24">
-              <a href="https://wa.me/5542998170202" className="btn btn-verde-1">
+              <a href="https://wa.me/541987459038" className="btn btn-verde-1">
                 Saiba mais
               </a>
-              <a href="https://wa.me/5542998170202" className="btn btn-verde-2">
+              <a href="https://wa.me/541987459038" className="btn btn-verde-2">
                 Cotar agora
               </a>
             </div>
           </div>
 
           <div className="cta-img-item">
-            <img src="imagens/11501.jpg" />
+            <img src="imagens/11501.jpg" alt="Imagem ilustrativa" />
           </div>
         </div>
       </section>
@@ -298,7 +298,7 @@ export default function Home() {
 
       <section className="hero">
         <div className="video-background desktop">
-          <img src="imagens/11501.jpg" className="video-placeholder" />
+          <img src="imagens/11501.jpg" className="video-placeholder" alt="Imagem ilustrativa" />
         </div>
 
         <div className="overlay"></div>
@@ -310,7 +310,7 @@ export default function Home() {
             segurança e tranquilidade.
           </p>
           <div className="f24">
-            <Link to="https://wa.me/5542998170202" className="btn btn-roxo-1">
+            <Link to="https://wa.me/541987459038" className="btn btn-roxo-1">
               Saiba mais
             </Link>
             <Link to="/cotacao" className="btn btn-roxo-2">
@@ -323,7 +323,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="footer-container">
           <div className="footer-left">
-            <img src="/imagens/1.png" />
+            <img src="/imagens/logo-preto.png" alt="Logo Vitta Guard" />
             <h2>Faça já sua cotação</h2>
             <p>
               Contrate seus seguros 100% online, com quem realmente se importa
@@ -339,13 +339,13 @@ export default function Home() {
             <h3>Links úteis</h3>
             <ul>
               <li>
-                <a href="https://wa.me/5542998170202">WhatsApp</a>
+                <a href="https://wa.me/541987459038">WhatsApp</a>
               </li>
               <li>
-                <a href="#">Instagram</a>
+                <a href="https://www.instagram.com/vittaguard/">Instagram</a>
               </li>
               <li>
-                <a href="#">Facebook</a>
+                <a href="https://www.facebook.com/profile.php?id=61574481791876">Facebook</a>
               </li>
             </ul>
             <svg
@@ -549,7 +549,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <a className="whatsapp-link" href="https://wa.me/5542998170202">
+      <a className="whatsapp-link" href="https://wa.me/541987459038">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="56"

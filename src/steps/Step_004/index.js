@@ -15,12 +15,14 @@ import validarAltura from "../../utils/validators/altura.js";
 import validarPeso from "../../utils/validators/peso.js";
 import validarRendaMensal from "../../utils/validators/renda.js";
 import SelectSearchCustom from "../../components/SelectSearchCustom/index.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Step004({ setStep, data, setData }) {
   const [modalErrorAberto, setModalErrorAberto] = useState(false);
   const [modalCancelAberto, setModalCancelAberto] = useState(false);
   const [loading, setLoading] = useState(false);
   const [profissoes, setProfissoes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProfissoes() {
@@ -659,11 +661,11 @@ export default function Step004({ setStep, data, setData }) {
         </BtnPrimary>
         <BtnSecundary
           onClick={() => {
-            setStep(3);
+            navigate("/");
           }}
           disabled={loading}
         >
-          Voltar um passo
+          Voltar para a página principal
         </BtnSecundary>
         {modalCancelAberto && (
           <Modal

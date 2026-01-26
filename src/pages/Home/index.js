@@ -7,7 +7,7 @@ export default function Home() {
       <section className="hero">
         <div className="video-background desktop">
           <img
-            src="imagens/11501.jpg"
+            src="imagens/Back site 1500x1000px.png"
             className="video-placeholder"
             alt="Imagem ilustrativa"
           />
@@ -17,15 +17,14 @@ export default function Home() {
 
         <div className="hero-content">
           <img
-            src="imagens/logo-branco.png"
+            src="imagens/ALPHA 3D 2.png"
             className="logo"
             alt="Logo Vitta Guard"
           />
 
-          <h1>Seguro inteligente para o que realmente importa</h1>
+          <h1>O que é o RIT?</h1>
           <p>
-            Contrate seus seguros 100% online, com quem realmente se importa com
-            você, Vitta Guard.
+            É o seguro que garante sua renda em caso de afastamentos por doenças e acidentes.
           </p>
           <div className="f24">
             <Link to="https://wa.me/5541987459038" className="btn btn-roxo-1">
@@ -134,10 +133,9 @@ export default function Home() {
           <div className="cta-img-item">
             <span className="badge">Vitta Guard</span>
 
-            <h3>Experiência, confiança e compromisso</h3>
+            <h3>Contrate o RIT com a Vitta Guard!</h3>
             <p>
-              Atuamos com responsabilidade e ética, oferecendo soluções seguras
-              e atualizadas para proteger o seu futuro.
+              O que é o RIT? É o seguro que garante sua renda em caso de afastamentos por doenças e acidentes. Faça sua cotação 100% online e gratuita agora!
             </p>
 
             <div className="f24">
@@ -151,7 +149,7 @@ export default function Home() {
           </div>
 
           <div className="cta-img-item">
-            <img src="imagens/11501.jpg" alt="Imagem ilustrativa" />
+            <img src="imagens/Criativo 1500x1000px.png" alt="Imagem ilustrativa" />
           </div>
         </div>
       </section>

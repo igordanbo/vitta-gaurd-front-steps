@@ -5,11 +5,12 @@ import Modal from "../../components/Modal";
 import validarDataNascimento from "../../utils/validators/nascimento.js";
 import validarAltura from "../../utils/validators/altura.js";
 import validarPeso from "../../utils/validators/peso.js";
+import { formatAltura, formatPeso } from "../../utils.js";
 
 import "./styles.css";
 import { useState } from "react";
 import BtnSecundary from "../../components/Btn/BtnSecundary";
-import { formatAltura, formatPeso } from "../../utils.js";
+
 
 export default function Step002({ setStep, data, setData }) {
   const [modalCancelAberto, setModalCancelAberto] = useState(false);

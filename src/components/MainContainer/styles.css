@@ -6,7 +6,7 @@
   gap: 32px;
   width: calc(100% - 64px);
   height: 100%;
-  margin: 200px auto 0 auto;
+  margin: 200px auto 200px auto;
   max-width: 800px;
   padding: 32px;
   border-radius: 32px;
@@ -33,3 +33,5 @@
 .header-container .header-logo img {
   width: 150px;
 }
+
+

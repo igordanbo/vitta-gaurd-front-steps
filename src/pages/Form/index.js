@@ -9,7 +9,7 @@ import Step005 from "../../steps/Step_005";
 import Loading from "../../components/Loading";
 
 export default function Form({ nameInput, valueInput }) {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(4);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -20,9 +20,12 @@ export default function Form({ nameInput, valueInput }) {
     altura: "",
     peso: "",
     profissao_atual: "",
+    profissao_atual_nome: "",
     renda_mensal: "",
     sexo: "",
     fumante: "",
+    outra_profissao: "",
+    plano_escolhido: "",
   });
 
   const steps = {
@@ -56,7 +59,6 @@ export default function Form({ nameInput, valueInput }) {
         <Step005 data={data} setData={setData} step={step} setStep={setStep} />
       </>
     ),
-
   };
 
   return (

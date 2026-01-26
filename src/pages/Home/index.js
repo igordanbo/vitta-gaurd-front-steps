@@ -24,7 +24,8 @@ export default function Home() {
 
           <h1>O que é o RIT?</h1>
           <p>
-            É o seguro que garante sua renda em caso de afastamentos por doenças e acidentes.
+            É o seguro que garante sua renda em caso de afastamentos por doenças
+            e acidentes.
           </p>
           <div className="f24">
             <Link to="https://wa.me/5541987459038" className="btn btn-roxo-1">
@@ -53,11 +54,10 @@ export default function Home() {
                 <path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415" />
               </svg>
             </div>
-            <h3>Segurança hoje para tranquilidade amanhã</h3>
+            <h3>Porque escolher o RIT da Vitta Guard?</h3>
             <p>
-              Imprevistos acontecem quando menos esperamos. Ter um seguro é
-              garantir estabilidade financeira, proteção e apoio nos momentos
-              mais difíceis.{" "}
+              Aqui na Vitta Guard o Dit virou Rit porque ele é diferente de
+              todas as outras coberturas que você já viu por aí.{" "}
             </p>
           </div>
 
@@ -76,10 +76,11 @@ export default function Home() {
                 <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
               </svg>
             </div>
-            <h3>Por que escolher a Vitta Guard? Te explicamos.</h3>
+            <h3>Conheça o diferencial do RIT da Vitta Guard</h3>
             <p>
-              Aqui você não compra apenas um seguro. Você constrói uma relação
-              de confiança com nossa equipe.
+              Pagamento retroativo da franquia: segurado recebe por todos os
+              dias de afastamento. Ou seja, se ele precisou se afastar do
+              trabalho por 11 dias, irá receber por todos eles.
             </p>
           </div>
 
@@ -135,7 +136,9 @@ export default function Home() {
 
             <h3>Contrate o RIT com a Vitta Guard!</h3>
             <p>
-              O que é o RIT? É o seguro que garante sua renda em caso de afastamentos por doenças e acidentes. Faça sua cotação 100% online e gratuita agora!
+              O que é o RIT? É o seguro que garante sua renda em caso de
+              afastamentos por doenças e acidentes. Faça sua cotação 100% online
+              e gratuita agora!
             </p>
 
             <div className="f24">
@@ -149,7 +152,10 @@ export default function Home() {
           </div>
 
           <div className="cta-img-item">
-            <img src="imagens/Criativo 1500x1000px.png" alt="Imagem ilustrativa" />
+            <img
+              src="imagens/Criativo 1500x1000px.png"
+              alt="Imagem ilustrativa"
+            />
           </div>
         </div>
       </section>

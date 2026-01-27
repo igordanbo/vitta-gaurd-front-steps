@@ -19,8 +19,6 @@ export default function InputCPF({
     const cpf = evento.target.value;
     const valido = validarCPF(cpf);
     setCpfValido(valido);
-    console.log('FORA' + valido);
-
 
     if (!valido && cpf.replace(/\D/g, '').length === 11) {
       setMensagemErro("CPF inválido");

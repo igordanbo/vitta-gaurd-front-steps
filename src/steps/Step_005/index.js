@@ -2,24 +2,10 @@ import BtnPrimary from "../../components/Btn/BtnPrimary";
 
 import "./styles.css";
 
-import { useNavigate } from "react-router-dom";
-
 export default function Step005({
   data,
   setData,
 }) {
-
-  const navigate = useNavigate();
-  const handleChangeData = (event) => {
-    const { name, value } = event.target;
-
-    setData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    console.log(data);
-  };
 
   return (
     <div className="container-step-5">

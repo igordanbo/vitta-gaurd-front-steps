@@ -78,6 +78,8 @@ export default function Step004({ setStep, data, setData }) {
       ...prev,
       [name]: formattedValue,
     }));
+
+    console.log("data", data);
   };
 
   const handleSubmit = async (e) => {
@@ -168,16 +170,19 @@ export default function Step004({ setStep, data, setData }) {
   };
 
   const sendToAzos = async () => {
-    const nameProfession = profissoes.find(p => p.valueKey === data?.profissao_atual)?.labelKey || "";
-
     const dataFormatted = (value) => {
       let valueFormatted = value;
 
+      valueFormatted = valueFormatted ? valueFormatted.replace('.', '') : null;
       valueFormatted = valueFormatted ? valueFormatted.replace(',', '.') : null;
       valueFormatted = valueFormatted ? valueFormatted.replace('R$', '') : null;
       valueFormatted = valueFormatted ? parseFloat(valueFormatted) : null;
 
       return valueFormatted;
+    }
+
+    const cleanPhone = (phone) => {
+      return phone.replace(/\D/g, '');
     }
 
     const dataToSend = {
@@ -192,8 +197,9 @@ export default function Step004({ setStep, data, setData }) {
         height: dataFormatted(data?.altura),
         birthDate: data?.data_nascimento || "",
         fullName: data?.nome || "",
-        professionDescription: nameProfession,
-        socialName: null
+        professionDescription: data?.profissao_atual_nome,
+        socialName: null,
+        phone: cleanPhone(data?.celular || ""),
       },
       isSpecialist: true
     }
@@ -287,8 +293,6 @@ export default function Step004({ setStep, data, setData }) {
           value={data.profissao_atual}
           onChange={handleChangeData}
         />
-
-        {console.log(data.profissao_atual, data.id_profissao_atual)}
 
         {data?.profissao_atual === "6154a70ed46bee50b01c610c" ? (
           <InputText
@@ -636,7 +640,7 @@ export default function Step004({ setStep, data, setData }) {
 
             <SelectCustom
               label={"Selecione o plano escolhido para sua cobertura:"}
-              valueKey="valuekey"
+              valueKey="valueKey"
               labelKey="labelKey"
               name={"plano_escolhido"}
               options={[
@@ -664,12 +668,12 @@ export default function Step004({ setStep, data, setData }) {
 
         <SelectCustom
           label={"No seu registro de nascimento consta o sexo:"}
-          valueKey="valuekey"
+          valueKey="valueKey"
           labelKey="labelKey"
           name={"sexo"}
           options={[
-            { valueKey: "masculino", labelKey: "Masculino" },
-            { valueKey: "masculino", labelKey: "Feminino" },
+            { valueKey: "male", labelKey: "Masculino" },
+            { valueKey: "female", labelKey: "Feminino" },
           ]}
           value={data.sexo}
           onChange={(event) => {
@@ -680,7 +684,7 @@ export default function Step004({ setStep, data, setData }) {
           label={
             "Você fumou produtos com nicotina ou cigarros eletrônicos nos últimos 24 meses:"
           }
-          valueKey="valuekey"
+          valueKey="valueKey"
           labelKey="labelKey"
           name={"fumante"}
           options={[

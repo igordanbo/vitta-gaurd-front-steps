@@ -78,8 +78,6 @@ export default function Step004({ setStep, data, setData }) {
       ...prev,
       [name]: formattedValue,
     }));
-
-    console.log("data", data);
   };
 
   const handleSubmit = async (e) => {
@@ -187,12 +185,12 @@ export default function Step004({ setStep, data, setData }) {
 
     const dataToSend = {
       params: {
-        profession_id: data?.profissao_atual,
+        professionId: data?.profissao_atual,
         alternativeProfession: data?.outra_profissao || "",
-        isSmoker: data?.fumante === "true" ? true : false,
-        gender: data?.sexo === 'masculino' ? 'male' : 'female',
+        isSmoker: data?.fumante,
+        gender: data?.sexo,
         salary: null,
-        monthlyIncome: dataFormatted(data?.renda_mensal),
+        monthlyIncome: dataFormatted(data?.renda_mensal).toFixed(2),
         weight: dataFormatted(data?.peso),
         height: dataFormatted(data?.altura),
         birthDate: data?.data_nascimento || "",
@@ -688,8 +686,8 @@ export default function Step004({ setStep, data, setData }) {
           labelKey="labelKey"
           name={"fumante"}
           options={[
-            { valueKey: true, labelKey: "Sim" },
-            { valueKey: false, labelKey: "Não" },
+            { valueKey: "true", labelKey: "Sim" },
+            { valueKey: "false", labelKey: "Não" },
           ]}
           value={data.fumante}
           onChange={(event) => {

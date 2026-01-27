@@ -16,6 +16,9 @@ import validarPeso from "../../utils/validators/peso.js";
 import validarRendaMensal from "../../utils/validators/renda.js";
 import SelectSearchCustom from "../../components/SelectSearchCustom/index.js";
 import { useNavigate } from "react-router-dom";
+import { formatAltura, formatDinheiro, formatPeso } from "../../utils.js";
+import axios from "axios";
+import { URLapi } from "../../Constants.js";
 
 export default function Step004({ setStep, data, setData }) {
   const [modalErrorAberto, setModalErrorAberto] = useState(false);
@@ -58,15 +61,26 @@ export default function Step004({ setStep, data, setData }) {
   const handleChangeData = (event) => {
     const { name, value } = event.target;
 
+    let formattedValue = value;
+
+    if (name === "peso") {
+      const apenasNumeros = value.replace(/\D/g, '');
+      formattedValue = apenasNumeros ? formatPeso(apenasNumeros) : '';
+    } else if (name === "altura") {
+      const apenasNumeros = value.replace(/\D/g, '');
+      formattedValue = apenasNumeros ? formatAltura(apenasNumeros) : '';
+    } else if (name === "renda_mensal") {
+      const apenasNumeros = value.replace(/\D/g, '');
+      formattedValue = apenasNumeros ? formatDinheiro(apenasNumeros) : '';
+    }
+
     setData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: formattedValue,
     }));
-
-    console.log(data);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const novosErros = {};
@@ -135,7 +149,66 @@ export default function Step004({ setStep, data, setData }) {
 
     setModalCancelAberto(false);
 
-    // resolve o nome da profissão
+    try {
+      setLoading(true);
+
+      await Promise.all([
+        sendToAzos(),
+        sendToGSheets()
+      ])
+
+      setStep(5);
+    } catch (error) {
+      console.error("Erro ao enviar os dados:", error);
+      setModalErrorAberto(true);
+    } finally {
+      setLoading(false);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const sendToAzos = async () => {
+    const nameProfession = profissoes.find(p => p.valueKey === data?.profissao_atual)?.labelKey || "";
+
+    const dataFormatted = (value) => {
+      let valueFormatted = value;
+
+      valueFormatted = valueFormatted ? valueFormatted.replace(',', '.') : null;
+      valueFormatted = valueFormatted ? valueFormatted.replace('R$', '') : null;
+      valueFormatted = valueFormatted ? parseFloat(valueFormatted) : null;
+
+      return valueFormatted;
+    }
+
+    const dataToSend = {
+      params: {
+        profession_id: data?.profissao_atual,
+        alternativeProfession: data?.outra_profissao || "",
+        isSmoker: data?.fumante === "true" ? true : false,
+        gender: data?.sexo === 'masculino' ? 'male' : 'female',
+        salary: null,
+        monthlyIncome: dataFormatted(data?.renda_mensal),
+        weight: dataFormatted(data?.peso),
+        height: dataFormatted(data?.altura),
+        birthDate: data?.data_nascimento || "",
+        fullName: data?.nome || "",
+        professionDescription: nameProfession,
+        socialName: null
+      },
+      isSpecialist: true
+    }
+
+    await axios.post(`${URLapi}/azos/quotations`, dataToSend);
+  }
+
+  const sendToGSheets = async () => {
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyAn0S21ePJgnxl2_S8CB-vRR759KjIh_CSz2uhkSrtOErJOAaYeovpfgDVReXa9DGyrA/exec';
+
+    const formData = new FormData();
+    Object.keys(data).forEach((key) => {
+      formData.append(key, data[key]);
+    });
+
     const profissaoSelecionada = profissoes.find(
       (p) => p.valueKey === data.profissao_atual,
     );
@@ -145,41 +218,11 @@ export default function Step004({ setStep, data, setData }) {
         ? data.outra_profissao
         : profissaoSelecionada?.labelKey || "";
 
-    const scriptUrl =
-      "https://script.google.com/macros/s/AKfycbyAn0S21ePJgnxl2_S8CB-vRR759KjIh_CSz2uhkSrtOErJOAaYeovpfgDVReXa9DGyrA/exec";
-
-    const formData = new FormData();
-
-    Object.keys(data).forEach((key) => {
-      formData.append(key, data[key]);
-    });
-
     formData.append("profissao_atual_nome", profissaoAtualNome);
+    formData.append('criado_em', moment().format('DD/MM/YYYY HH:mm:ss'));
 
-    formData.append("criado_em", moment().format("DD/MM/YYYY HH:mm:ss"));
-
-    setLoading(true);
-
-    fetch(scriptUrl, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          setStep(5);
-        } else {
-          setModalErrorAberto(true);
-          throw new Error("Erro ao enviar o formulário");
-        }
-      })
-      .catch((error) => {
-        console.error("Erro ao enviar o formulário:", error);
-        setModalErrorAberto(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
+    await axios.post(scriptUrl, formData);
+  }
 
   return (
     <>
@@ -260,8 +303,8 @@ export default function Step004({ setStep, data, setData }) {
         )}
 
         {data?.profissao_atual === "6154a712d46bee50b01c61bc" ||
-        data?.profissao_atual === "6154a711d46bee50b01c6145" ||
-        data?.profissao_atual === "6154a711d46bee50b01c615a" ? (
+          data?.profissao_atual === "6154a711d46bee50b01c6145" ||
+          data?.profissao_atual === "6154a711d46bee50b01c615a" ? (
           <>
             <div className="planos_saude">
               <h3>
